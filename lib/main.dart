@@ -87,9 +87,20 @@ class _HomePageState extends State<HomePage> {
               child: ColoredBox(
                 color: Colors.red,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
                   mainAxisSize: MainAxisSize.min,
                   children: [
+                    Expanded(
+                        child: Center(
+                      child: Text(TelegramWebApp
+                              .instance.initDataUnsafe?.startParam
+                              .toString() ??
+                          'NULLL'),
+                    )),
+                    Expanded(
+                        child: Center(
+                      child: Text(
+                          TelegramWebApp.instance.initData.user.id.toString()),
+                    )),
                     Text(
                       TelegramWebApp.instance.initData.user.username ??
                           'NULL AST',
