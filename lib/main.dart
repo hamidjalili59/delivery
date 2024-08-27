@@ -22,14 +22,28 @@ void main() async {
   runApp(const MyApp());
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  Widget build(BuildContext context) {
+    return const AspectRatio(
+      aspectRatio: 9 / 16,
+      child: MaterialApp(
+        home: HomePage(),
+      ),
+    );
+  }
 }
 
-class _MyAppState extends State<MyApp> {
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   bool isComplete = false;
   Timer? _timer;
 
@@ -56,44 +70,30 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 9 / 16,
-      child: MaterialApp(
-        home: AnimatedDefaultTextStyle(
+    return Scaffold(
+        backgroundColor: TelegramWebApp.instance.backgroundColor,
+        extendBody: true,
+        body: AnimatedDefaultTextStyle(
           duration: Durations.extralong4,
           style: TextStyle(
             fontSize: isComplete ? 36 : 48,
             color: isComplete ? Colors.pinkAccent : Colors.white,
           ),
-          child: const HomePage(),
-        ),
-      ),
-    );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: TelegramWebApp.instance.backgroundColor,
-        extendBody: true,
-        body: Placeholder(
-          child: Align(
-            alignment: Alignment.bottomCenter,
-            child: ColoredBox(
-              color: TelegramWebApp.instance.headerColor ?? Colors.red,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    TelegramWebApp.instance.initData.user.username ??
-                        'NULL AST',
-                  ),
-                ],
+          child: Placeholder(
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: ColoredBox(
+                color: TelegramWebApp.instance.headerColor ?? Colors.red,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      TelegramWebApp.instance.initData.user.username ??
+                          'NULL AST',
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
