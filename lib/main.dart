@@ -50,9 +50,9 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
 
-    _timer = Timer(
-      const Duration(seconds: 3),
-      () {
+    _timer = Timer.periodic(
+      const Duration(seconds: 1),
+      (tim) {
         setState(() {
           isComplete = !isComplete;
         });
@@ -70,10 +70,10 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.amber,
+        backgroundColor: TelegramWebApp.instance.headerColor ?? Colors.pink,
         extendBody: true,
         body: AnimatedDefaultTextStyle(
-          duration: Durations.extralong4,
+          duration: Durations.medium4,
           style: TextStyle(
             fontSize: isComplete ? 36 : 48,
             color: isComplete ? Colors.black : Colors.white,
