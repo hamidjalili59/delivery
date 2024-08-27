@@ -70,7 +70,10 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: TelegramWebApp.instance.headerColor ?? Colors.pink,
+        backgroundColor:
+            TelegramWebApp.instance.colorScheme == TelegramColorScheme.light
+                ? Colors.white
+                : Colors.blueGrey,
         extendBody: true,
         body: AnimatedDefaultTextStyle(
           duration: Durations.medium4,
