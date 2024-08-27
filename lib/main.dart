@@ -9,6 +9,9 @@ void main() async {
       await TelegramWebApp.instance.ready();
       await TelegramWebApp.instance.enableClosingConfirmation();
       await TelegramWebApp.instance.expand();
+      await TelegramWebApp.instance.backButton.show();
+      await TelegramWebApp.instance.mainButton.show();
+      await TelegramWebApp.instance.settingButton.show();
     }
   } catch (e) {
     await Future.delayed(const Duration(milliseconds: 200));
@@ -26,12 +29,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const AspectRatio(
-      aspectRatio: 9 / 16,
-      child: MaterialApp(
-        home: HomePage(),
-      ),
-    );
+    return const MaterialApp(home: HomePage());
   }
 }
 
@@ -76,37 +74,28 @@ class _HomePageState extends State<HomePage> {
                 : Colors.blueGrey,
         extendBody: true,
         body: AnimatedDefaultTextStyle(
-          duration: Durations.medium4,
+          duration: Durations.medium2,
           style: TextStyle(
-            fontSize: isComplete ? 36 : 48,
+            fontSize: isComplete ? 24 : 48,
             color: isComplete ? Colors.black : Colors.white,
+            fontWeight: isComplete ? FontWeight.w400 : FontWeight.bold,
           ),
           child: Placeholder(
             child: Align(
               alignment: Alignment.bottomCenter,
-              child: ColoredBox(
-                color: Colors.red,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Expanded(
-                        child: Center(
-                      child: Text(TelegramWebApp
-                              .instance.initDataUnsafe?.startParam
-                              .toString() ??
-                          'NULLL'),
-                    )),
-                    Expanded(
-                        child: Center(
-                      child: Text(
-                          TelegramWebApp.instance.initData.user.id.toString()),
-                    )),
-                    Text(
-                      TelegramWebApp.instance.initData.user.username ??
-                          'NULL AST',
-                    ),
-                  ],
-                ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Expanded(
+                      child: Center(
+                    child: Text(
+                        TelegramWebApp.instance.initData.user.id.toString()),
+                  )),
+                  Text(
+                    TelegramWebApp.instance.initData.user.username ??
+                        'NULL AST',
+                  ),
+                ],
               ),
             ),
           ),
