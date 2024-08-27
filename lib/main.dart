@@ -8,8 +8,7 @@ void main() async {
     if (TelegramWebApp.instance.isSupported) {
       await TelegramWebApp.instance.ready();
       await TelegramWebApp.instance.enableClosingConfirmation();
-      Future.delayed(
-          const Duration(seconds: 1), TelegramWebApp.instance.expand);
+      await TelegramWebApp.instance.expand();
     }
   } catch (e) {
     await Future.delayed(const Duration(milliseconds: 200));
@@ -71,7 +70,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: TelegramWebApp.instance.backgroundColor,
+        backgroundColor: Colors.amber,
         extendBody: true,
         body: AnimatedDefaultTextStyle(
           duration: Durations.extralong4,
@@ -83,7 +82,7 @@ class _HomePageState extends State<HomePage> {
             child: Align(
               alignment: Alignment.bottomCenter,
               child: ColoredBox(
-                color:  Colors.red,
+                color: Colors.red,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   mainAxisSize: MainAxisSize.min,
