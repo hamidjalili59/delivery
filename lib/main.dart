@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:telegram_web_app/telegram_web_app.dart';
 
@@ -20,15 +22,51 @@ void main() async {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  bool isComplete = false;
+  Timer? _timer;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _timer = Timer(
+      const Duration(seconds: 3),
+      () {
+        setState(() {
+          isComplete = !isComplete;
+        });
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    _timer = null;
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return const AspectRatio(
+    return AspectRatio(
       aspectRatio: 9 / 16,
       child: MaterialApp(
-        home: HomePage(),
+        home: AnimatedDefaultTextStyle(
+          duration: Durations.extralong4,
+          style: TextStyle(
+            fontSize: isComplete ? 36 : 48,
+            color: isComplete ? Colors.pinkAccent : Colors.white,
+          ),
+          child: const HomePage(),
+        ),
       ),
     );
   }
@@ -52,7 +90,8 @@ class HomePage extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    TelegramWebApp.instance.initData.user.username ?? 'NULL AST',
+                    TelegramWebApp.instance.initData.user.username ??
+                        'NULL AST',
                   ),
                 ],
               ),
