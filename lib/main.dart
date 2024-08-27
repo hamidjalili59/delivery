@@ -77,13 +77,13 @@ class _HomePageState extends State<HomePage> {
           duration: Durations.extralong4,
           style: TextStyle(
             fontSize: isComplete ? 36 : 48,
-            color: isComplete ? Colors.pinkAccent : Colors.white,
+            color: isComplete ? Colors.black : Colors.white,
           ),
           child: Placeholder(
             child: Align(
               alignment: Alignment.bottomCenter,
               child: ColoredBox(
-                color: TelegramWebApp.instance.headerColor ?? Colors.red,
+                color:  Colors.red,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   mainAxisSize: MainAxisSize.min,
