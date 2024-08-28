@@ -45,7 +45,9 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   bool isComplete = false;
+  bool isLoading = false;
   Timer? _timer;
+  bool isPause = false;
 
   final player = AudioPlayer();
 
@@ -89,18 +91,43 @@ class _HomePageState extends State<HomePage> {
           color: isComplete ? Colors.purpleAccent : Colors.green,
           fontWeight: isComplete ? FontWeight.w400 : FontWeight.w900,
         ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            InkWell(
-              onTap: () async {
-                await player.setUrl(_musicLink);
-                await player.play();
-              },
-              child: Text(player.playing ? 'Playing' : 'Stop'),
-            ),
-          ],
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              InkWell(
+                onTap: () async {
+                  if (isLoading) return;
+                  if (!player.playing && !isPause) {
+                    setState(() {
+                      isLoading = true;
+                    });
+                    await player.setUrl(_musicLink);
+                    player.play();
+                    setState(() {
+                      isLoading = false;
+                    });
+                  } else {
+                    if (isPause) {
+                      await player.play();
+                    } else {
+                      await player.pause();
+                    }
+                  }
+                },
+                child: isLoading
+                    ? const CircularProgressIndicator()
+                    : Text(player.playing
+                        ? isPause
+                            ? 'Pause'
+                            : 'Playing'
+                        : 'Stop'),
+              ),
+            ],
+          ),
         ),
       ),
     );
