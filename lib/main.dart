@@ -11,10 +11,10 @@ void main() async {
     if (TelegramWebApp.instance.isSupported) {
       await TelegramWebApp.instance.ready();
       await TelegramWebApp.instance.enableClosingConfirmation();
-      await TelegramWebApp.instance.expand();
-      await TelegramWebApp.instance.backButton.show();
-      await TelegramWebApp.instance.mainButton.show();
-      await TelegramWebApp.instance.settingButton.show();
+      // await TelegramWebApp.instance.expand();
+      // await TelegramWebApp.instance.backButton.show();
+      // await TelegramWebApp.instance.mainButton.show();
+      // await TelegramWebApp.instance.settingButton.show();
     }
   } catch (e) {
     await Future.delayed(const Duration(milliseconds: 200));
@@ -61,11 +61,6 @@ class _HomePageState extends State<HomePage> {
         });
       },
     );
-    WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback(
-      (timeStamp) async {
-        await player.setUrl(_musicLink);
-      },
-    );
     TelegramWebApp.instance.mainButton.onClick(
       () async => await player.play(),
     );
@@ -101,10 +96,16 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   Expanded(
                       child: Center(
-                    child: Text(player.playing ? 'Playing' : 'Stop'),
+                    child: InkWell(
+                      onTap: () async {
+                        await player.setUrl(_musicLink);
+                        await player.play();
+                      },
+                      child: Text(player.playing ? 'Playing' : 'Stop'),
+                    ),
                   )),
                   Text(
-                    TelegramWebApp.instance.initData.user.username ??
+                    'TelegramWebApp.instance.initData.user.username' ??
                         'NULL AST',
                   ),
                 ],
