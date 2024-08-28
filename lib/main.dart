@@ -1,7 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:telegram_web_app/telegram_web_app.dart';
+
+const _musicLink = 'https://hamid.storage.iran.liara.space/music.mp3';
 
 void main() async {
   try {
@@ -44,6 +47,8 @@ class _HomePageState extends State<HomePage> {
   bool isComplete = false;
   Timer? _timer;
 
+  final player = AudioPlayer();
+
   @override
   void initState() {
     super.initState();
@@ -55,6 +60,14 @@ class _HomePageState extends State<HomePage> {
           isComplete = !isComplete;
         });
       },
+    );
+    WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback(
+      (timeStamp) async {
+        await player.setUrl(_musicLink);
+      },
+    );
+    TelegramWebApp.instance.mainButton.onClick(
+      () async => await player.play(),
     );
   }
 
