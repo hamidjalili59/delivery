@@ -61,9 +61,9 @@ class _HomePageState extends State<HomePage> {
         });
       },
     );
-    TelegramWebApp.instance.mainButton.onClick(
-      () async => await player.play(),
-    );
+    // TelegramWebApp.instance.mainButton.onClick(
+    //   () async => await player.play(),
+    // );
   }
 
   @override
@@ -76,42 +76,33 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor:
-            TelegramWebApp.instance.colorScheme == TelegramColorScheme.light
-                ? Colors.white
-                : Colors.blueGrey,
-        extendBody: true,
-        body: AnimatedDefaultTextStyle(
-          duration: Durations.medium2,
-          style: TextStyle(
-            fontSize: isComplete ? 28 : 48,
-            color: isComplete ? Colors.red : Colors.redAccent,
-            fontWeight: isComplete ? FontWeight.w400 : FontWeight.w900,
-          ),
-          child: Placeholder(
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Expanded(
-                      child: Center(
-                    child: InkWell(
-                      onTap: () async {
-                        await player.setUrl(_musicLink);
-                        await player.play();
-                      },
-                      child: Text(player.playing ? 'Playing' : 'Stop'),
-                    ),
-                  )),
-                  Text(
-                    'TelegramWebApp.instance.initData.user.username' ??
-                        'NULL AST',
-                  ),
-                ],
-              ),
+      backgroundColor:
+          TelegramWebApp.instance.colorScheme == TelegramColorScheme.light
+              ? Colors.white
+              : Colors.blueGrey,
+      extendBody: true,
+      body: AnimatedDefaultTextStyle(
+        duration: Durations.medium2,
+        curve: Curves.elasticInOut,
+        style: TextStyle(
+          fontSize: isComplete ? 28 : 48,
+          color: isComplete ? Colors.purpleAccent : Colors.green,
+          fontWeight: isComplete ? FontWeight.w400 : FontWeight.w900,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            InkWell(
+              onTap: () async {
+                await player.setUrl(_musicLink);
+                await player.play();
+              },
+              child: Text(player.playing ? 'Playing' : 'Stop'),
             ),
-          ),
-        ));
+          ],
+        ),
+      ),
+    );
   }
 }

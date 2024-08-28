@@ -23,6 +23,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   telegram_web_app: ^0.1.5
   just_audio: ^0.9.40
+  flutter_animate: ^4.5.0
 
 dev_dependencies:
   flutter_test:
