@@ -89,9 +89,9 @@ class _HomePageState extends State<HomePage> {
         body: AnimatedDefaultTextStyle(
           duration: Durations.medium2,
           style: TextStyle(
-            fontSize: isComplete ? 24 : 48,
-            color: isComplete ? Colors.black : Colors.white,
-            fontWeight: isComplete ? FontWeight.w400 : FontWeight.bold,
+            fontSize: isComplete ? 28 : 48,
+            color: isComplete ? Colors.red : Colors.redAccent,
+            fontWeight: isComplete ? FontWeight.w400 : FontWeight.w900,
           ),
           child: Placeholder(
             child: Align(
@@ -101,8 +101,7 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   Expanded(
                       child: Center(
-                    child: Text(
-                        TelegramWebApp.instance.initData.user.id.toString()),
+                    child: Text(player.playing ? 'Playing' : 'Stop'),
                   )),
                   Text(
                     TelegramWebApp.instance.initData.user.username ??
